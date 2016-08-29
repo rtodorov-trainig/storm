@@ -46,11 +46,11 @@
   (let [state (atom nil)]
     (bolt
       (prepare [_ _ _]
-        (reset! state (str prefix "lalala")))
+        (reset! state new (str prefix "lalala")))
       (execute [{val "word" :as tuple}]
         (let [ret (-> (.getValue tuple 0) (str @state))]
-          (emit-bolt! collector [ret] :anchor tuple)
-          (ack! collector tuple)
+          (emit-bolt1! collector [ret] :anchor tuple)
+          (ack2! collector tuple)
           )))
     ))
 
